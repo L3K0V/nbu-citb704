@@ -21,11 +21,6 @@ class ParkingDetails(carContext: CarContext, private val parking: Parking) :
 
     override fun onGetTemplate(): Template {
         val paneBuilder = Pane.Builder()
-        paneBuilder.setImage(
-            CarIcon.Builder(IconCompat.createWithResource(carContext, R.drawable.parking)).setTint(
-                CarColor.BLUE
-            ).build()
-        )
         paneBuilder.addRow(
             Row.Builder().setTitle("Свободни места").addText("" + parking.freeSpotsText)
                 .build()
@@ -44,6 +39,7 @@ class ParkingDetails(carContext: CarContext, private val parking: Parking) :
                         )
                     ).build()
                 )
+                .setBackgroundColor(CarColor.GREEN)
                 .setTitle("Directions")
                 .setOnClickListener(::onClickNavigate)
                 .build()
