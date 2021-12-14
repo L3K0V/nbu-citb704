@@ -10,10 +10,9 @@ import androidx.car.app.Screen
 import androidx.car.app.model.*
 import androidx.core.graphics.drawable.IconCompat
 import androidx.lifecycle.DefaultLifecycleObserver
-import org.json.JSONObject
 
 
-class ZoneParkingDetails(carContext: CarContext, private val parking: JSONObject) :
+class ParkingDetails(carContext: CarContext, private val parking: Parking) :
     Screen(carContext), DefaultLifecycleObserver {
 
     init {
@@ -28,32 +27,36 @@ class ZoneParkingDetails(carContext: CarContext, private val parking: JSONObject
             ).build()
         )
         paneBuilder.addRow(
-            Row.Builder().setTitle("Свободни места").addText(parking.getString("free_places"))
+            Row.Builder().setTitle("Свободни места").addText("" + parking.freeSpotsText)
                 .build()
         )
         paneBuilder.addRow(
-            Row.Builder().setTitle("Обслужва").addText(parking.getString("zone")).build()
+            Row.Builder().setTitle("Обслужва").addText(parking.zone).build()
         )
 
         paneBuilder.addAction(
             Action.Builder()
-                .setTitle("Navigate")
+                .setIcon(
+                    CarIcon.Builder(
+                        IconCompat.createWithResource(
+                            carContext,
+                            R.drawable.directions
+                        )
+                    ).build()
+                )
+                .setTitle("Directions")
                 .setOnClickListener(::onClickNavigate)
                 .build()
         )
 
         return PaneTemplate.Builder(paneBuilder.build())
-            .setTitle(parking.getString("name"))
+            .setTitle(parking.name)
             .setHeaderAction(Action.BACK)
             .build()
     }
 
     private fun onClickNavigate() {
-
-        val lat = parking.getJSONObject("location").getDouble("lat")
-        val lon = parking.getJSONObject("location").getDouble("lon")
-
-        val uri: Uri = Uri.parse("geo:${lat},${lon}")
+        val uri: Uri = Uri.parse("geo:${parking.location.latitude},${parking.location.longitude}")
         val intent = Intent(CarContext.ACTION_NAVIGATE, uri)
 
         try {
