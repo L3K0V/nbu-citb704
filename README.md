@@ -22,6 +22,11 @@ Blue and Green parking zones in Sofia using Sofia Traffic public API. All parkin
 into SQLite database and updated on user refresh. Selecting a parking user can navigate to or see
 its details.
 
+<img width="912" alt="image" src="https://user-images.githubusercontent.com/2267270/146090753-726fd584-e7f2-45b6-8dd7-ec755dd22978.png">
+
+<img width="912" alt="image" src="https://user-images.githubusercontent.com/2267270/146090781-28f84317-d29c-4d8f-a35d-b982cc227bb4.png">
+
+
 ## Getting started
 
 You will need:
