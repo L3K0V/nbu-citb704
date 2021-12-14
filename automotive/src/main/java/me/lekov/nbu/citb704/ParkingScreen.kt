@@ -1,7 +1,9 @@
 package me.lekov.nbu.citb704
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
@@ -28,18 +30,24 @@ class ParkingScreen(carContext: CarContext) : Screen(carContext), DefaultLifecyc
         lifecycle.addObserver(this)
     }
 
-    @SuppressLint("MissingPermission")
     override fun onCreate(owner: LifecycleOwner) {
-        val locationManager = carContext
-            .getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        currentLocation = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER)
-        Log.i("Zones", currentLocation.toString())
+        if (carContext.checkSelfPermission(
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && carContext.checkSelfPermission(
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            finish()
+            return
+        }
     }
 
     @SuppressLint("MissingPermission")
     override fun onStart(owner: LifecycleOwner) {
         val locationManager = carContext
             .getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+        currentLocation = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER)
         locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 5000, 50.0f, this)
 
         observeParking()
