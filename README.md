@@ -38,3 +38,10 @@ You will need:
 
 When you download the setup the project you be able to run it normally and check the result
 
+## Start the app for macOS
+
+```shell
+cd $ANDROID_SDK_ROOT/extras/google/auto/
+adb forward tcp:5277 tcp:5277
+./desktop-head-unit
+```
