@@ -8,8 +8,8 @@ import androidx.car.app.model.*
 
 
 class RequestPermissionScreen(
-    carContext: CarContext, var mLocationPermissionCheckCallback: LocationPermissionCheckCallback
-) : Screen(carContext) {
+    context: CarContext, var mLocationPermissionCheckCallback: LocationPermissionCheckCallback
+) : Screen(context) {
 
     interface LocationPermissionCheckCallback {
         fun onPermissionGranted()
@@ -17,7 +17,7 @@ class RequestPermissionScreen(
 
     override fun onGetTemplate(): Template {
         val permissions = listOf(ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION)
-        val message = "This app needs access to location in order to show the map around you"
+        val message = carContext.getString(R.string.location_prompt)
         val listener: OnClickListener = ParkedOnlyOnClickListener.create {
             carContext.requestPermissions(
                 permissions
@@ -29,7 +29,7 @@ class RequestPermissionScreen(
             }
         }
         val action: Action = Action.Builder()
-            .setTitle("Grant Access")
+            .setTitle(carContext.getString(R.string.grant_access))
             .setBackgroundColor(CarColor.GREEN)
             .setOnClickListener(listener)
             .build()

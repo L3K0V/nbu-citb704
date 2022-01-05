@@ -24,6 +24,7 @@ class ParkingService : CarAppService() {
     }
 
     override fun onCreateSession() = object : Session() {
+
         override fun onCreateScreen(intent: Intent): Screen {
             if (carContext.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
                 && carContext.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
@@ -32,8 +33,8 @@ class ParkingService : CarAppService() {
             }
 
             val screenManager = carContext.getCarService(ScreenManager::class.java)
-            screenManager
-                .push(ParkingScreen(carContext))
+            screenManager.push(ParkingScreen(carContext))
+
             return RequestPermissionScreen(
                 carContext,
                 object : LocationPermissionCheckCallback {

@@ -22,6 +22,7 @@ class ParkingScreen(carContext: CarContext) : Screen(carContext), DefaultLifecyc
     LocationListener {
 
     var currentLocation: Location? = null
+
     private var dao: ParkingDAO = ParkingDAO(carContext)
     private var template: Template? = null
 

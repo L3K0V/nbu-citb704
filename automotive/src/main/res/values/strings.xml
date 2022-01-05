@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CITB704</string>
+    <string name="grant_access">Grant Access</string>
+    <string name="location_prompt">This app needs access to location in order to show public parkings around you</string>
 </resources>
